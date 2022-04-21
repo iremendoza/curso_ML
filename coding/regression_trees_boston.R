@@ -18,7 +18,7 @@ summary(tree.boston)
 plot(tree.boston)
 text(tree.boston, pretty = 0)
 
-# La variable que más pesa es rm, el número de dormitorios.
+# La variable que m?s pesa es rm, el n?mero de dormitorios.
 # La variable lstat mide el porcentaje de individuos con status 
 # socio-economico bajo
 # El arbol indica que el valor mas bajo de 
@@ -28,8 +28,9 @@ text(tree.boston, pretty = 0)
 # hagamos una prediccion
 yhat <- predict(tree.boston, newdata = Boston[-train, ])
 boston.test <- Boston[-train, "medv"]
-plot(yhat, boston.test, main = "Predicción con árbol")
+plot(yhat, boston.test, main = "Predicci?n con ?rbol")
 
 # RMSE
 errorcuad <- sqrt(sum((yhat - boston.test)^2)/length(boston.test))
-print(paste("Error cuadrático ",errorcuad))
+print(paste("Error cuadratico ",errorcuad))
+

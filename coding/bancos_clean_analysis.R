@@ -22,37 +22,38 @@ library(pROC)
 # poutcome: outcome of the previous marketing campaign (categorical: "unknown","other","failure","success")
 # y - has the client subscribed a term deposit? (binary: "yes","no")
  
-# Carga de datos
-#
-
+#### Carga de datos ####
 
 datosdefault <- read.csv("./data/bancos_clean.csv")
 
 
-# Convertimos la variable de respuesta en categ?rica
+# Convertimos la variable de respuesta en categorica
 datosdefault$y <- as.factor(datosdefault$y)
+str(datosdefault)
 # Eliminamos las columnas X y poutcome
 drops <- c("X","poutcome")
 datosdefault <- datosdefault[ , !(names(datosdefault) %in% drops)]
 
-# Fujamos el valor de la semilla random para que la divisi?n train/test sea reproducible
+# Fijamos el valor de la semilla random para que la division train/test sea reproducible
 set.seed(10)
-# Elegimos al azar el 20% de los n?meros de fila para crear el testing set
+
+# Elegimos al azar el 20% de los numeros de fila para crear el testing set
 test.ids <- sample(1:nrow(datosdefault), nrow(datosdefault)*0.2)
 
 # Training set
-datosmodelo.train <- datosdefault[-test.ids,]
+datosmodelo.train <- datosdefault[-test.ids,] #80% de los datos
 # Testing set
-datosmodelo.test <- datosdefault[test.ids,]
+datosmodelo.test <- datosdefault[test.ids,]   #20% de los datos
 
-# Entrenamos un modelo randomforest
-#
+#### Entrenamos un modelo randomforest ####
+
 modeloRF <- randomForest(x = datosmodelo.train[, !(names(datosmodelo.train) %in% c("y"))], 
                            y = datosmodelo.train$y, 
                            method = "class",
                            ntree = 100, do.trace = F)
-# Predecimos sobre test
-#
+
+#### Predecimos sobre test ####
+
 pred.rf <- predict(modeloRF, datosmodelo.test, type = "prob")
 
 myrocRF <- roc(response = datosmodelo.test$y, predictor = as.numeric(pred.rf[,2]), 
@@ -69,6 +70,7 @@ fitted.results <- ifelse(pred.Logistica > 0.5,1,0)
 
 myrocLogistica <- roc(response = datosmodelo.test$y, predictor = as.numeric(pred.Logistica), 
              percent = T, plot = T, ci = T, smooth = F)
+summary(modeloLogistica)
 plot(myrocLogistica, col = "red", main = paste0("Logistica AUC: ", myrocLogistica$auc/100))
 
 # Interpretabilidad. Peso de las variables, seg?n test ANOVA
