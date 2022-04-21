@@ -26,18 +26,18 @@ library(pROC)
 #
 
 
-datosdefault <- read.csv("bancos_clean.csv")
+datosdefault <- read.csv("./data/bancos_clean.csv")
 
 
-# Convertimos la variable de respuesta en categórica
+# Convertimos la variable de respuesta en categ?rica
 datosdefault$y <- as.factor(datosdefault$y)
 # Eliminamos las columnas X y poutcome
 drops <- c("X","poutcome")
 datosdefault <- datosdefault[ , !(names(datosdefault) %in% drops)]
 
-# Fujamos el valor de la semilla random para que la división train/test sea reproducible
+# Fujamos el valor de la semilla random para que la divisi?n train/test sea reproducible
 set.seed(10)
-# Elegimos al azar el 20% de los números de fila para crear el testing set
+# Elegimos al azar el 20% de los n?meros de fila para crear el testing set
 test.ids <- sample(1:nrow(datosdefault), nrow(datosdefault)*0.2)
 
 # Training set
@@ -59,7 +59,7 @@ myrocRF <- roc(response = datosmodelo.test$y, predictor = as.numeric(pred.rf[,2]
              percent = T, plot = T, ci = T, smooth = F)
 plot(myrocRF, col= "green", main = paste0("RF AUC: ", myrocRF$auc/100))
 
-# Ahora hacemos lo mismo pero con regresión logística
+# Ahora hacemos lo mismo pero con regresi?n log?stica
 
 modeloLogistica <- glm(y ~.,family=binomial(link='logit'),data=datosmodelo.train)
 
@@ -71,5 +71,5 @@ myrocLogistica <- roc(response = datosmodelo.test$y, predictor = as.numeric(pred
              percent = T, plot = T, ci = T, smooth = F)
 plot(myrocLogistica, col = "red", main = paste0("Logistica AUC: ", myrocLogistica$auc/100))
 
-# Interpretabilidad. Peso de las variables, según test ANOVA
+# Interpretabilidad. Peso de las variables, seg?n test ANOVA
 anova(modeloLogistica, test="Chisq")

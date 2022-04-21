@@ -1,0 +1,19 @@
+---
+title: "Curso_ML"
+author: "Irene Mendoza"
+date: '2022-04-21'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Notas del curso
+
+## Curso de Machine Learning impartido por Javier García Algarra
+
+
+```{r cars}
+summary(cars)
+```
+
