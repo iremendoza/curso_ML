@@ -12,6 +12,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Curso de Machine Learning impartido por Javier García Algarra
 
+Importar en Orange: CSV file import
+Aparecen las características del fichero.
+Data table: sirve para ver la estructura del . Hay que darle unos datos como entrada. 
+
+Lo normal es que haya 90/10 de casos diferentes para sí/no.
+Splilt by para dividir variables. Solo para variables categóricas.
+
+Select column para elegir las variables a meter en el mdoelo. 
+Se colocan las variables que se quieren ignorar en el modelo usando select column.    
+
+Target: variable que queremos predecir.
+poutcome se elimina porque afecta al resultado. 
+
+Tenemos que separar los datos en dos conjuntos: el training y el testing. Normalmente se deja el 80 para el training y el 20 para el testing. 
+
+Se usa data sampler para separar en dos partes el conjunto de datos.
+
+Se puede elegir un modelo estratificado. 
+
+Deterministic sampling: hay que mantener el orden de la separación.
+
+Para quedarnos con el 30% tengo que poner en el enlace "remaining data".
+
+Hay que elegir el modelo a escoger
+
+Usamos una regresión logística: se elige el modelo.
+
+Tiempo de regularización: hiperparámetro. Ridge es el que se elige. Es un tipo de regularización (ver libro).
+
+Para ver el resultado, hay que crear una nueva cajita que se llama "test and scoring": se les conecta el modelo logístico, el training set y el testing set.
+
+Seleccionar el modelo sobre "test data". Me sale una AUC sobre 0.87.
+
+Para ver el área under the curve, tengo que ir a test and scoring.
+
+Probamos ahora con un *random forest*. Enchufo la salida con los datos de entrenamiento y la salida, con test and score. 
+
+El tree es mucho peor modelo. 
+
+Random forest, casi igual que la regresión logística. POdemos cambiar el número de árboles. 
+
+Gradient boosting. Saca una AUC parecida al resto. 
+
+Las redes neuronales es el único modelo que metiendo más capas, no produce overfitting
+
 
 ```{r cars}
 summary(cars)
