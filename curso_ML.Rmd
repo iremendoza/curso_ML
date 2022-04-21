@@ -55,8 +55,37 @@ Random forest, casi igual que la regresión logística. POdemos cambiar el núme
 
 Gradient boosting. Saca una AUC parecida al resto. 
 
-Las redes neuronales es el único modelo que metiendo más capas, no produce overfitting
+Las redes neuronales es el único modelo que metiendo más capas, no produce overfitting..
 
+El overfitting se ve cuando baja la AUC a medida que se añaden más parámetros. 
+
+Cómo sabemos las variables que tienen más peso. ¿Dónde están los coeficientes de cada variable? Para verlo, añado un data table y lo conecto a la salida de logistic regression
+
+Hay que ver antes si las variables están correlacionadas: se usa una caja que se llama Rank. Lo enchufamos a seleccionar columnas. Vemos cuánto contribuye cada llamada a la contratación del seguro.  La duración de la llamada es una consecuencia de la contratación del seguro. "Duration" no sirve para hacer el predictor. Se quita usando "ignore" columns.   
+
+Create instance, para meter a mano los datos de un caso. Muestreo una entrada elegida que sirve como patrón. Se une la cajita predictions y se le conectan los datos de entrada y el modelo que quiero predecir. 
+
+Se puede enchufar directamente el logistic regression a selected columns y luego poner la validación cruzada. En la realidad, en lugar de separar 80 y 20, y se separan los datos en dos subconjuntos. 
+
+
+## Boston price ##
+
+La variable respuesta es medv
+mv es el número de habitaciones de la vivienda
+
+Como hay pocos casos, con data sampler, se separa 20 y 80.
+Marcar siempre "test on test data". 
+Se usa el R2, coeficiente de determinación.
+
+Cuanto más cercano sea a 1, el modelo es mucho mejor. 
+
+El que mejor funciona es el gboost.
+
+Con Orange data mining se pueden hacer modelos no supervisados y de reconocimiento de imagen. 
+
+Para el próximo día, hacen falta ejemplos que están en la web
+
+Razonamiento simbólico asociado a las redes neuronales. 
 
 ```{r cars}
 summary(cars)
